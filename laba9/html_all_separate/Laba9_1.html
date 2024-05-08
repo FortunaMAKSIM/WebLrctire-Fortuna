@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function CitySelect() {
+            const [city, setCity] = React.useState('');
+
+            return (
+                <div>
+                    <select value={city} onChange={e => setCity(e.target.value)}>
+                        <option value="rio">Рио-де-Жанейро</option>
+                        <option value="moscow">Москва</option>
+                        <option value="new-york">Нью-Йорк</option>
+                    </select>
+                    {city !== 'rio' && city && <p>Нет, это не Рио-де-Жанейро!</p>}
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <>
+                <h2>Селектор городов</h2>
+                <CitySelect />
+            </>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

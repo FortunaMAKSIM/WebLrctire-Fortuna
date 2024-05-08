@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laba8_Ex3</title>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+        
+        function Primes() {
+            const [primes, setPrimes] = React.useState([]);
+
+            React.useEffect(() => {
+                let n = 2;
+                const intervalId = setInterval(() => {
+                    function isPrime(num) {
+                        for (let i = 2, s = Math.sqrt(num); i <= s; i++)
+                            if (num % i === 0) return false;
+                        return num > 1;
+                    }
+
+                    while (!isPrime(n)) n++;
+                    setPrimes(primes => [...primes, n]);
+                    n++;
+                }, 1000);
+
+                return () => clearInterval(intervalId);
+            }, []);
+
+            return <div>{primes.join(", ")}</div>;
+        }
+
+        function App() {
+            return (
+                <>
+                    <h2>Задача 3: Вывод простых чисел</h2>
+                    <Primes />
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+    </body>
+</html>

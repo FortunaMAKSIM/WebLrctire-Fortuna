@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function NumberSystemCalculator() {
+            const [input, setInput] = React.useState('');
+            const [base, setBase] = React.useState(10);
+            const [output, setOutput] = React.useState('');
+
+            const convertNumber = () => {
+                try {
+                    const number = parseInt(input, base);
+                    setOutput(number.toString(10));
+                } catch (error) {
+                    setOutput('Invalid input');
+                }
+            };
+
+            return (
+                <div>
+                    <input value={input} onChange={e => setInput(e.target.value)} />
+                    <select value={base} onChange={e => setBase(e.target.value)}>
+                        <option value="2">Binary</option>
+                        <option value="10">Decimal</option>
+                        <option value="16">Hexadecimal</option>
+                    </select>
+                    <button onClick={convertNumber}>Convert</button>
+                    <p>Result: {output}</p>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <>
+                <h2>Калькулятор систем счисления</h2>
+                <NumberSystemCalculator />
+            </>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

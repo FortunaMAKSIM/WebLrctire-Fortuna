@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function AgeInSeconds() {
+            const [birthday, setBirthday] = React.useState('');
+            const [seconds, setSeconds] = React.useState(0);
+
+            React.useEffect(() => {
+                if (birthday) {
+                    const birthDate = new Date(birthday);
+                    const updateSeconds = () => {
+                        const now = new Date();
+                        const diff = (now.getTime() - birthDate.getTime()) / 1000;
+                        setSeconds(Math.floor(diff));
+                    };
+                    updateSeconds();
+                    const intervalId = setInterval(updateSeconds, 1000);
+                    return () => clearInterval(intervalId);
+                }
+            }, [birthday]);
+
+            return (
+                <div>
+                    <input
+                        type="date"
+                        value={birthday}
+                        onChange={e => setBirthday(e.target.value)}
+                    />
+                    <p>Вы прожили: {seconds} секунд.</p>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <>
+                <h2>Прожитые секунды</h2>
+                <AgeInSeconds />
+            </>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laba8_Ex4</title>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+        
+        function TrafficLight() {
+            const [color, setColor] = React.useState('red');
+
+            React.useEffect(() => {
+                const colors = ['red', 'yellow', 'green'];
+                let current = 0;
+
+                const intervalId = setInterval(() => {
+                    current = (current + 1) % colors.length;
+                    setColor(colors[current]);
+                }, 1000);
+
+                return () => clearInterval(intervalId);
+            }, []);
+
+            return (
+                <div style={{ width: '50px', height: '150px', backgroundColor: color }}>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <h2>Задача 4: Светофор</h2>
+                    <TrafficLight />
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+    </body>
+</html>

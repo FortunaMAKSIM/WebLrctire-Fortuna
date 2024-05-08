@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laba8_Ex1</title>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script type="text/babel">
+            function Countdown() {
+            const [count, setCount] = React.useState(10);
+
+            React.useEffect(() => {
+                if (count > 0) {
+                    const timerId = setTimeout(() => setCount(count - 1), 1000);
+                    return () => clearTimeout(timerId);
+                }
+            }, [count]);
+
+            return <div>{count}</div>;
+        }
+
+        function App() {
+            return (
+                <>
+                    <h2>Задача 1: Обратный таймер</h2>
+                    <Countdown />
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+    </body>
+</html>

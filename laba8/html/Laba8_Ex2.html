@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laba8_Ex2</title>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+        
+        function Timer() {
+            const [time, setTime] = React.useState(0);
+            const [isActive, setIsActive] = React.useState(false);
+
+            React.useEffect(() => {
+                let interval = null;
+                if (isActive) {
+                    interval = setInterval(() => {
+                        setTime(prevTime => prevTime + 1);
+                    }, 1000);
+                } else if (!isActive && time !== 0) {
+                    clearInterval(interval);
+                }
+                return () => clearInterval(interval);
+            }, [isActive, time]);
+
+            return (
+                <div>
+                    <div>{time}</div>
+                    <button onClick={() => setIsActive(!isActive)}>{isActive ? '⏸' : '▶'}</button>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <h2>Задача 2: Восходящий таймер</h2>
+                    <Timer />
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+    </body>
+</html>
